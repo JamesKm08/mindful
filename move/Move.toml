@@ -1,0 +1,13 @@
+[package]
+name = "mindful"
+version = "1.0.0"
+authors = []
+
+[addresses]
+module_add = "0xef42aa6a2dad0b6d2aeb58624efb9defead0bc59c80bba9c4e965a2b6288196e"
+
+[dependencies]
+AptosFramework = { local = "/home/jim/aptos-core-main/aptos-move/framework/aptos-framework", rev = "testnet" }
+AptosTokenObjects = { local = "/home/jim/aptos-core-main/aptos-move/framework/aptos-token-objects", rev = "testnet" }
+
+[dev-dependencies]
