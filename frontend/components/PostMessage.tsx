@@ -30,6 +30,9 @@ export function PostMessage() {
         title: "Success",
         description: `Transaction succeeded, hash: ${executedTransaction.hash}`,
       });
+
+    setNewMessageContent("")
+
     } catch (error) {
       console.error(error);
     }
@@ -39,7 +42,7 @@ export function PostMessage() {
     <div className="flex flex-col gap-6">
       <h4 className="text-lg font-medium">Hello you mindful human being</h4>
       New message{" "}
-      <Input disabled={!account} placeholder="What's on your mind?" onChange={(e) => setNewMessageContent(e.target.value)} />
+      <Input disabled={!account} placeholder="What's on your mind?" value ={newMessageContent} onChange={(e) => setNewMessageContent(e.target.value)} />
       <Button
         disabled={!account || !newMessageContent || newMessageContent.length === 0 || newMessageContent.length > 100}
         onClick={onClickButton}
