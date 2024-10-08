@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: linear-gradient(135deg, #3b82f6, #9333ea);
     --foreground: 240 10% 3.9%;
 
     --card: 0 0% 100%;
@@ -72,6 +72,10 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    background: var(--background);
+    @apply text-foreground;
+    min-height: 100vh;
+    margin: 0;
+    background-clip: border-box;
   }
 }
