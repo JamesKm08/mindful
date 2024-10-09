@@ -1,26 +1,31 @@
+import { MODULE_ADDRESS } from "@/constants";
 import { aptosClient } from "@/utils/aptosClient";
-import { useWallet } from "@aptos-labs/wallet-adapter-react";
-import { useState, useEffect } from "react";
 
-const MODULE_ADDRESS = "0xef42aa6a2dad0b6d2aeb58624efb9defead0bc59c80bba9c4e965a2b6288196e";
-const MODULE_NAME = "mindful";
+const MODULE_ADDRESS = "0xef42aa6a2dad0b6d2aeb58624efb9defead0bc59c80bba9c4e965a2b6288196e"
+const MODULE_NAME = "mindful"
 
-export const viewMeetings = async () => {
-    if (!account) return [];
+interface MeetingLinks {
+  alcoholAnon: string;
+  gamblerAnon: string;
+}
 
-    try {
-        const response = await aptosClient().getAccountResource(
-               `${MODULE_ADDRESS}::${MODULE_NAME}::Mindful`
-             );
+export const getMeetingLinks = async (): Promise<MeetingLinks> => {
+  try {
+    const response = await aptosClient().view({
+      function: `${MODULE_ADDRESS}::mindful::get_meeting_links`,
+      type_arguments: [],
+      arguments: [],
+    });
 
-        const { data } = response as any;
-        return data.meetings.map((msg: any) => ({
-           alcohol_anon: msg.alcohol_anon,
-           gambler_anon: msg.gambler_anon,
-           }));
-        } catch (error) {
-            console.error("Failed to fetch meetings", error);
-            return [];
-           }
+    return {
+      alcoholAnon: response[0] as string,
+      gamblerAnon: response[1]as string,
+    };
+  } catch (error) {
+    console.error("Error fetching meeting links:", error);
+    return {
+      alcoholAnon: "",
+      gamblerAnon: "",
+    };
+  }
 };
-
