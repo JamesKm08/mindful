@@ -1,50 +1,87 @@
-import { useEffect, useState } from "react";
-import { useWallet } from "@aptos-labs/wallet-adapter-react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import React, { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { getMeetingLinks } from '@/view-functions/viewMeetings';
+import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { toast } from "@/components/ui/use-toast";
-import { aptosClient } from "@/utils/aptosClient";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { viewMeetings} from "@/view-functions/viewMeetings";
 
-const MODULE_ADDRESS = "0xef42aa6a2dad0b6d2aeb58624efb9defead0bc59c80bba9c4e965a2b6288196e";
-const MODULE_NAME = "mindful";
+export function ViewMeetings() {
+  const [showDropdowns, setShowDropdowns] = useState(false);
 
-const ViewMeetings = () => {
-  const { account } = useWallet();
-  const [meetings, setMeetings] = useState<Array<{ alcohol_anon: string; gambler_anon: string}>>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const { data: meetingLinks, isLoading, error } = useQuery({
+    queryKey: ['meetingLinks'],
+    queryFn: getMeetingLinks,
+  });
 
-  useEffect(() => {
-      async function getMeetings() {
-        setLoading(true);
-        const messages = await fetchMeetings();
-        setMeetings(meetings);
-        setLoading(false);
-      }
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error loading meeting links</div>;
 
-    getMeetings();
-      }, []);
+  const handleMeetingClick = (link: string) => {
+    if (!link) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Meeting link is not available.",
+      });
+      return;
+    }
 
-      if (loading) {
-        return <div>Loading...</div>;
-      }
+    try {
+      // Ensure the link starts with a protocol
+      const url = link.startsWith('http') ? link : `https://${link}`;
+      window.open(url, '_blank', 'noopener,noreferrer');
+    } catch (error) {
+      console.error("Error opening link:", error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Unable to open meeting link. Please try again.",
+      });
+    }
+  };
 
-    return (
-       <div className="flex flex-col gap-6">
-            <h4 className="text-lg font-medium">Meetings</h4>
-            {messages.length === 0 ? (
-              <p>No meetings available</p>
-            ) : (
-              messages.map((msg, index) => (
-                <div key={index} className="p-4 border rounded">
-                  <div className="font-bold">{msg.alcohol_anon}</div>
-                  <div className="font-bold">{msg.gambler_anon}</div>
+  return (
+    <div className="flex flex-col items-center gap-4">
+      <Button onClick={() => setShowDropdowns(!showDropdowns)}>
+        {showDropdowns ? 'Hide Meetings' : 'Show Meetings'}
+      </Button>
 
-                </div>
-              ))
-            )}
-          </div>
-    );
-};
-export default ViewMeetings;
+      {showDropdowns && (
+        <div className="flex gap-4">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline">Alcoholics Anonymous</Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem
+                onClick={() => handleMeetingClick(meetingLinks?.alcoholAnon || '')}
+                disabled={!meetingLinks?.alcoholAnon}
+              >
+                {meetingLinks?.alcoholAnon ? 'Join Meeting' : 'Link Unavailable'}
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline">Gamblers Anonymous</Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem
+                onClick={() => handleMeetingClick(meetingLinks?.gamblerAnon || '')}
+                disabled={!meetingLinks?.gamblerAnon}
+              >
+                {meetingLinks?.gamblerAnon ? 'Join Meeting' : 'Link Unavailable'}
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+      )}
+    </div>
+  );
+}
