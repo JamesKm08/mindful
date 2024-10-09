@@ -17,7 +17,7 @@ function App() {
           <Card>
             <CardContent className="flex flex-col gap-10 pt-6">
               <PostMessage />
-
+              <ViewMeetings/>
             </CardContent>
           </Card>
         ) : (
