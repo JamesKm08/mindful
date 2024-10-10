@@ -32,7 +32,7 @@ export function ViewMeetings() {
     }
 
     try {
-      // Ensure the link starts with a protocol
+
       const url = link.startsWith('http') ? link : `https://${link}`;
       window.open(url, '_blank', 'noopener,noreferrer');
     } catch (error) {
@@ -60,7 +60,6 @@ export function ViewMeetings() {
             <DropdownMenuContent>
               <DropdownMenuItem
                 onClick={() => handleMeetingClick(meetingLinks?.alcoholAnon || '')}
-                disabled={!meetingLinks?.alcoholAnon}
               >
                 {meetingLinks?.alcoholAnon ? 'Join Meeting' : 'Link Unavailable'}
               </DropdownMenuItem>
@@ -74,7 +73,6 @@ export function ViewMeetings() {
             <DropdownMenuContent>
               <DropdownMenuItem
                 onClick={() => handleMeetingClick(meetingLinks?.gamblerAnon || '')}
-                disabled={!meetingLinks?.gamblerAnon}
               >
                 {meetingLinks?.gamblerAnon ? 'Join Meeting' : 'Link Unavailable'}
               </DropdownMenuItem>
