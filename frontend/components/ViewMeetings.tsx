@@ -32,7 +32,6 @@ export function ViewMeetings() {
     }
 
     try {
-
       const url = link.startsWith('http') ? link : `https://${link}`;
       window.open(url, '_blank', 'noopener,noreferrer');
     } catch (error) {
@@ -46,16 +45,18 @@ export function ViewMeetings() {
   };
 
   return (
-    <div className="flex flex-col items-center gap-4">
-      <Button onClick={() => setShowDropdowns(!showDropdowns)}>
+    <div className="relative inline-block">
+      <Button onClick={() => setShowDropdowns(!showDropdowns)} className="ml-2">
         {showDropdowns ? 'Hide Meetings' : 'Show Meetings'}
       </Button>
 
       {showDropdowns && (
-        <div className="flex gap-4">
+        <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline">Alcoholics Anonymous</Button>
+              <Button variant="ghost" className="w-full justify-between">
+                Alcoholics Anonymous
+              </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuItem
@@ -68,7 +69,9 @@ export function ViewMeetings() {
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline">Gamblers Anonymous</Button>
+              <Button variant="ghost" className="w-full justify-between mt-1">
+                Gamblers Anonymous
+              </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuItem
