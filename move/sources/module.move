@@ -5,15 +5,13 @@ module module_add::mindful {
     use std::vector;
     use aptos_framework::timestamp;
 
-    // Error handling
+    /// Error handling
     const ENOT_OWNER: u64 = 1;
     const EINVALID_MEETING_TYPE: u64 = 2;
-    const EINVALID_PAGE: u64 = 3;
     const MAX_MESSAGES: u64 = 100;
     const MAX_THERAPISTS: u64 = 50;
-    const ITEMS_PER_PAGE: u64 = 10;
 
-    // Resources
+    /// Resources
     struct Mindful has key {
         messages: vector<Message>,
         therapists: vector<Therapist>,
@@ -48,6 +46,8 @@ module module_add::mindful {
             },
         })
     }
+
+    /// Entry Functions
 
     public entry fun add_message(sender: &signer, message: String) acquires Mindful {
         let sender_address = signer::address_of(sender);
@@ -102,30 +102,18 @@ module module_add::mindful {
         assert!(signer::address_of(owner) == @module_add, error::permission_denied(ENOT_OWNER));
     }
 
+    /// View Functions
+
     #[view]
-    public fun get_messages(page: u64): vector<Message> acquires Mindful {
+    public fun get_messages(): vector<Message> acquires Mindful {
         let mindful = borrow_global<Mindful>(@module_add);
-        let start = page * ITEMS_PER_PAGE;
-        assert!(start < vector::length(&mindful.messages), error::invalid_argument(EINVALID_PAGE));
-        let end = if (start + ITEMS_PER_PAGE > vector::length(&mindful.messages)) {
-            vector::length(&mindful.messages)
-        } else {
-            start + ITEMS_PER_PAGE
-        };
-        vector::slice(&mindful.messages, (start as u64), (end as u64))
+        mindful.messages
     }
 
     #[view]
-    public fun get_therapists(page: u64): vector<Therapist> acquires Mindful {
+    public fun get_therapists(): vector<Therapist> acquires Mindful {
         let mindful = borrow_global<Mindful>(@module_add);
-        let start = page * ITEMS_PER_PAGE;
-        assert!(start < vector::length(&mindful.therapists), error::invalid_argument(EINVALID_PAGE));
-        let end = if (start + ITEMS_PER_PAGE > vector::length(&mindful.therapists)) {
-            vector::length(&mindful.therapists)
-        } else {
-            start + ITEMS_PER_PAGE
-        };
-        vector::slice(&mindful.therapists, (start as u64), (end as u64))
+        mindful.therapists
     }
 
     #[view]
