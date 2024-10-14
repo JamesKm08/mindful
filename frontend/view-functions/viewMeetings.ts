@@ -1,6 +1,6 @@
 import { aptosClient } from "@/utils/aptosClient";
 
-const MODULE_ADDRESS = "0xef42aa6a2dad0b6d2aeb58624efb9defead0bc59c80bba9c4e965a2b6288196e"
+const MODULE_ADDRESS = "0x4493314e5bde4dad14a902a126973cac90fa26e1b4921aeb6645cb647eee8176"
 const MODULE_NAME = "mindful"
 
 export const getMeetingLinks = async (): Promise<{ alcoholAnon: string; gamblerAnon: string }> => {
