@@ -1,4 +1,5 @@
 import { WalletSelector } from "./WalletSelector";
+import { ViewMeetings } from "@/components/ViewMeetings";
 
 export function Header() {
   return (
@@ -7,6 +8,7 @@ export function Header() {
 
       <div className="flex gap-2 items-center flex-wrap">
         <WalletSelector />
+        <ViewMeetings/>
       </div>
     </div>
   );
