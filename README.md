@@ -1,36 +1,103 @@
-### MINDFUL
+# MINDFUL
 *Peace and tranquility for us all*
-This wonderful application enables users to talk and share about their mental struggles in different areas.
+
+## Table of Contents
+- [Description](#description)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Technologies](#technologies)
+- [Contributing](#contributing)
+- [Future Improvements](#future-improvements)
+- [License](#license)
+- [Contact](#contact)
+
+## Description
+This wonderful Aptos blockchain application platform enables users to talk and share about their mental struggles in different areas.
+It is designed to support individuals in their journey towards mental health and addiction recovery.
 Users can join in anonymous virtual meetings to cater for everyone around the globe. It also provides a platform for users to connect with therapists around the world and get crisis responses like suicide prevention hotlines.
 
 ## The application provides:
 
-- **Message board functionality implementation** - Pre-made message components to send and read a message on chain
-- **Dapp infrastructure** - All required dependencies a dapp needs to start building on the Aptos network.
-- **Wallet Info implementation** - Pre-made `WalletInfo` components to demonstrate how one can use to read a connected Wallet info.
-- **Trasnfer APT implementation** - Pre-made `transfer` components to send APT to an address.
-- **Message board functionality implementation** - Pre-made `message` components to send and read a message on chain
+- **Post and View** - User-friendly interface for posting and viewing community messages
+- **Wallet implementation** - Secure authentication using Aptos wallet
+- **Anonymous Meetings** - Anonymous participation in virtual support group meetings
+- **Therapist Board** - Showing a list of professional therapist who are able to help the community
 
+## Installation
 
-## What tools the template uses?
+To set up the project locally, follow these steps:
+
+1. Clone the repository:
+   ```
+   git clone git@github.com:JamesKm08/mindful.git
+   ```
+2. Navigate to the project directory:
+   ```
+   cd mindful
+   ```
+3. Install dependencies:
+   ```
+   npm install
+   ```
+4. Set up environment variables:
+    - Create a `.env` file in the root directory
+    - Add necessary environment variables
+
+5. Start the development server:
+   ```
+   npm run dev
+   ```
+
+## Usage
+
+1. Connect your Aptos wallet to the application.
+2. Navigate to the meetings section to view available support group meetings.
+3. Click on a meeting to join
+4. Use the main page to share thoughts or read community posts.
+
+## Technologies
 
 - React framework
+- TypeScript
 - Vite development tool
-- shadcn/ui + tailwind for styling
 - Aptos TS SDK
 - Aptos Wallet Adapter
+- TanStack Query (React Query)
+- Tailwind CSS
+- shadcn/ui components
 - Node based Move commands
 
-## What Move commands are available?
+## Contributing
 
-The tool utilizes [aptos-cli npm package](https://github.com/aptos-labs/aptos-cli) that lets us run Aptos CLI in a Node environment.
+We welcome contributions to Mindful! Please follow these steps to contribute:
 
-Some commands are built-in the template and can be ran as a npm script, for example:
+1. Fork the repository
+2. Create a new branch: `git checkout -b feature-branch-name`
+3. Make your changes and commit them: `git commit -m 'Add some feature'`
+4. Push to the branch: `git push origin feature-branch-name`
+5. Submit a pull request
 
-- `npm run move:publish` - a command to publish the Move contract
-- `npm run move:test` - a command to run Move unit tests
-- `npm run move:compile` - a command to compile the Move contract
-- `npm run move:upgrade` - a command to upgrade the Move contract
-- `npm run deploy` - a command to deploy the dapp to Vercel
+## Future Improvements
 
-For all other available CLI commands, can run `npx aptos` and see a list of all available commands.
+- Implement additional support group types
+- Implement Jisti meeting for better anonymity in meetings and tracking for rewards
+- Add a reward system for consistent meeting attendance
+- Integrate AI-powered chatbot for 24/7 support and hotlines
+- Implement comments in posts
+- Create a decentralized identity system for user profiles
+
+## License
+
+This project is licensed under the Apache-2.0 license - see the [LICENSE.md](LICENSE.md) file for details.
+
+## Contact
+
+For any questions or concerns, please open an issue on this repository or contact me:
+
+- Mail: [James Kamau](mailto:jmkamau08@gmail.com)
+- Socials: [Twitter](https://x.com/KamauTheSecond)
+
+---
+
+Thank you for your interest in Mindful. Together, we can create a supportive and empowering community for those on their journey to recovery and mental wellness.
