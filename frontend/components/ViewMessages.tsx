@@ -1,50 +1,45 @@
-import { useEffect, useState } from "react";
-import { useWallet } from "@aptos-labs/wallet-adapter-react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { toast } from "@/components/ui/use-toast";
-import { aptosClient } from "@/utils/aptosClient";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { viewMessages} from "@/view-functions/viewMessages";
+import { viewMessages } from "@/view-functions/viewMessages";
+import { Trash } from "react-bootstrap-icons"
 
-const MODULE_ADDRESS = "0xc17bf48d3bd22cc4a1dbb432445d2701d4c18dd7adda12852c250e130a81b648"
-const MODULE_NAME = "billboard"
+export function ViewMessages() {
+  const { data: messages, isLoading, error } = useQuery({
+    queryKey: ['messages'],
+    queryFn: viewMessages,
+    onError: (error: any) => {
+      console.error("Query error:", error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Failed to load messages: " + (error.message || "Unknown error"),
+      });
+    },
+  });
 
-const ViewMessages = () => {
-  const { account } = useWallet();
-  const [messages, setMessages] = useState<Array<{ sender: string; message: string; added_at: Date }>>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {(error as Error).message}</div>;
+  if (!messages) return <div>No messages available</div>;
 
-  useEffect(() => {
-      async function getMessages() {
-        setLoading(true);
-        const messages = await fetchMessages();
-        setMessages(messages);
-        setLoading(false);
-      }
-
-    getMessages();
-      }, []);
-
-      if (loading) {
-        return <div>Loading...</div>;
-      }
-
-    return (
-       <div className="flex flex-col gap-6">
-            <h4 className="text-lg font-medium">Messages</h4>
-            {messages.length === 0 ? (
-              <p>No messages available</p>
-            ) : (
-              messages.map((msg, index) => (
-                <div key={index} className="p-4 border rounded">
+  return (
+    <div className="flex flex-col gap-6">
+      <h4 className="text-lg font-medium">Messages</h4>
+      {messages.length === 0 ? (
+        <p>No messages available</p>
+      ) : (
+        messages.map((msg, index) => (
+           <div key={index} className="p-4 border rounded flex justify-between items-center">
+                <div className="flex flex-col">
                   <div className="font-bold">{msg.sender}</div>
                   <div>{msg.message}</div>
-                  <div className="text-sm text-gray-500">{msg.added_at.toLocaleString()}</div>
+                  <div className="text-sm text-gray-500">{new Date(msg.added_at * 1000).toLocaleString()}</div>
                 </div>
-              ))
-            )}
-          </div>
-    );
-};
-export default ViewMessages;
+                <button onClick={() => handleDeleteMessage(msg.sender, msg.message)}>
+                 <Trash className="h-5 w-5 text-red-500" />
+                </button>
+              </div>
+        ))
+      )}
+    </div>
+  );
+}
