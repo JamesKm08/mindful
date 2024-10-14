@@ -4,7 +4,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Header } from "@/components/Header";
 import { PostMessage } from "@/components/PostMessage";
 import { ViewMessages } from "@/components/ViewMessages";
-import { ViewMeetings } from "@/components/ViewMeetings";
 
 function App() {
   const { connected } = useWallet();
@@ -17,7 +16,7 @@ function App() {
           <Card>
             <CardContent className="flex flex-col gap-10 pt-6">
               <PostMessage />
-              <ViewMeetings/>
+              <ViewMessages/>
             </CardContent>
           </Card>
         ) : (
