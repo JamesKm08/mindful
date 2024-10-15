@@ -1,15 +1,20 @@
+import React from 'react';
 import { WalletSelector } from "./WalletSelector";
 import { ViewMeetings } from "@/components/ViewMeetings";
+import { useWallet } from "@aptos-labs/wallet-adapter-react";
 
 export function Header() {
-  return (
-    <div className="flex items-center justify-between px-4 py-2 max-w-screen-xl mx-auto w-full flex-wrap">
-      <h1 className="display">Mindful</h1>
+  const { connected } = useWallet();
 
-      <div className="flex gap-2 items-center flex-wrap">
-        <WalletSelector />
-        <ViewMeetings/>
+  return (
+    <header className="bg-white shadow">
+      <div className="max-w-screen-xl mx-auto px-4 py-4 flex items-center justify-between flex-wrap">
+        <h1 className="text-2xl font-bold text-gray-800">Mindful</h1>
+        <div className="flex gap-2 items-center flex-wrap">
+          <WalletSelector />
+          {connected && <ViewMeetings />}
+        </div>
       </div>
-    </div>
+    </header>
   );
 }

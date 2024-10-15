@@ -45,6 +45,7 @@ export function ViewMeetings() {
   };
 
   return (
+      // Add dropdrop menus for the meetings
     <div className="relative inline-block">
       <Button onClick={() => setShowDropdowns(!showDropdowns)} className="ml-2">
         {showDropdowns ? 'Hide Meetings' : 'Show Meetings'}

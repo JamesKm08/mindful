@@ -34,7 +34,7 @@ export function ViewMessages() {
                   <div>{msg.message}</div>
                   <div className="text-sm text-gray-500">{new Date(msg.added_at * 1000).toLocaleString()}</div>
                 </div>
-                <button onClick={() => handleDeleteMessage(msg.sender, msg.message)}>
+                <button >
                  <Trash className="h-5 w-5 text-red-500" />
                 </button>
               </div>

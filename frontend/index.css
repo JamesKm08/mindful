@@ -79,3 +79,21 @@
     background-clip: border-box;
   }
 }
+
+@layer components {
+  .therapist-list {
+    position: absolute;
+    top: 50;
+    right: 100;
+    width: 300px;
+    height: 600vh;
+    background-color: var(--background);
+    padding: 20px;
+    z-index: 100;
+    visibility: hidden;
+  }
+
+  .therapist-list.visible {
+    visibility: visible;
+  }
+}
