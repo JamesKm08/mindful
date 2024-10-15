@@ -81,11 +81,10 @@ We welcome contributions to Mindful! Please follow these steps to contribute:
 ## Future Improvements
 - An improved User Interface
 - Integrate AI-powered chatbot for 24/7 support and hotlines
-- Implement additional support group types
-- Implement Jisti meeting for better anonymity in meetings
+- Implement Jisti meeting for additional support group types and better anonymity in meetings
 - Add a reward system for consistent meeting attendance
-- Implement comments in posts
 - Create wellness programs like breathing exercises, meditation and yoga
+- Implement comments in posts
 
 ## License
 
