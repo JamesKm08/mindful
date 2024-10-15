@@ -79,11 +79,11 @@ We welcome contributions to Mindful! Please follow these steps to contribute:
 5. Submit a pull request
 
 ## Future Improvements
-
-- Implement additional support group types
-- Implement Jisti meeting for better anonymity in meetings and tracking for rewards
-- Add a reward system for consistent meeting attendance
+- An improved User Interface
 - Integrate AI-powered chatbot for 24/7 support and hotlines
+- Implement additional support group types
+- Implement Jisti meeting for better anonymity in meetings
+- Add a reward system for consistent meeting attendance
 - Implement comments in posts
 - Create a decentralized identity system for user profiles
 
