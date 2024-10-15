@@ -85,7 +85,7 @@ We welcome contributions to Mindful! Please follow these steps to contribute:
 - Implement Jisti meeting for better anonymity in meetings
 - Add a reward system for consistent meeting attendance
 - Implement comments in posts
-- Create a decentralized identity system for user profiles
+- Create wellness programs like breathing exercises, meditation and yoga
 
 ## License
 
