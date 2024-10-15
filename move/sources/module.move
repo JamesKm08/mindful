@@ -42,7 +42,7 @@ module module_add::mindful {
             therapists: vector::empty(),
             meeting_links: AnonMeetings {
                 alcohol_anon: string::utf8(b"https://meet.google.com/upc-zgos-zsg"),
-                gambler_anon: string::utf8(b"https://meet.google.com/upc-zgos-zsg"),
+                gambler_anon: string::utf8(b"https://meet.google.com/dnh-xwfi-zgy"),
             },
         })
     }
@@ -64,8 +64,7 @@ module module_add::mindful {
         vector::push_back(&mut posts.messages, new_message);
     }
 
-    public entry fun add_therapist(owner: &signer, name: String, area_of_work: String, photo: String, number: u64) acquires Mindful {
-        only_owner(owner);
+    public entry fun add_therapist(name: String, area_of_work: String, photo: String, number: u64) acquires Mindful {
         let mindful = borrow_global_mut<Mindful>(@module_add);
         let new_therapist = Therapist {
             name,
@@ -92,10 +91,21 @@ module module_add::mindful {
         };
     }
 
-    public entry fun clear_messages(owner: &signer) acquires Mindful {
-        only_owner(owner);
+    public entry fun clear_messages(sender: &signer) acquires Mindful {
+        let sender_address = signer::address_of(sender);
         let mindful = borrow_global_mut<Mindful>(@module_add);
-        mindful.messages = vector::empty();
+        let (i, len) = (0, vector::length(&mindful.messages));
+        let temp = vector::empty();
+
+        while (i < len) {
+            let message = vector::borrow(&mindful.messages, i);
+            if (message.sender != sender_address) {
+                vector::push_back(&mut temp, *message);
+            };
+            i = i + 1;
+        };
+
+        mindful.messages = temp;
     }
 
     inline fun only_owner(owner: &signer) {
@@ -103,7 +113,6 @@ module module_add::mindful {
     }
 
     /// View Functions
-
     #[view]
     public fun get_messages(): vector<Message> acquires Mindful {
         let mindful = borrow_global<Mindful>(@module_add);
