@@ -17,11 +17,12 @@ This wonderful Aptos blockchain application platform enables users to talk and s
 It is designed to support individuals in their journey towards mental health and addiction recovery.
 Users can join in anonymous virtual meetings to cater for everyone around the globe. It also provides a platform for users to connect with therapists around the world and get crisis responses like suicide prevention hotlines.
 
-## The application provides:
+## Features
+### The application provides:
 
 - **Post and View** - User-friendly interface for posting and viewing community messages
 - **Wallet implementation** - Secure authentication using Aptos wallet
-- **Anonymous Meetings** - Anonymous participation in virtual support group meetings
+- **Virtual Anonymous Meetings** - Virtual support group meetings through Google meet for now
 - **Therapist Board** - Showing a list of professional therapist who are able to help the community
 
 ## Installation
@@ -43,6 +44,11 @@ To set up the project locally, follow these steps:
 4. Set up environment variables:
     - Create a `.env` file in the root directory
     - Add necessary environment variables
+   
+5. Publish contract using your own module address and change the necessary files
+   ```
+   npm install
+   ```
 
 5. Start the development server:
    ```
