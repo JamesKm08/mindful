@@ -47,7 +47,7 @@ To set up the project locally, follow these steps:
    
 5. Publish contract using your own module address and change the necessary files
    ```
-   npm install
+   npm run move:publish
    ```
 
 5. Start the development server:
